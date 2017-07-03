@@ -1,0 +1,23 @@
+<h4 class="ui dividing header">Lista de Clientes</h4>
+<table class="ui single line table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CpfCnpj</th>
+      <th>Cidade</th>
+      <th>Estado</th>
+      <th>Telefone</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of (customers$ | async)">
+      <td>{{customer.nome}}</td>
+      <td>{{customer.cpfCnpj}}</td>
+      <td>{{customer.cidade}}</td>
+      <td>{{customer.estado}}</td>
+      <td>{{customer.telefone}}</td>
+      <td>{{customer.email}}</td>
+    </tr>
+  </tbody>
+</table>

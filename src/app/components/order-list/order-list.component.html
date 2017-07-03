@@ -1,0 +1,28 @@
+<h4 class="ui dividing header">Lista de Pedidos</h4>
+<div class="ui divided items">
+  <div class="item" *ngFor="let order of (orders$ | async)">
+    <div class="content">
+      <div class="header">
+        {{ order.id }} - {{order.cliente.nome}}
+      </div>
+      <div class="right floated">
+          <div class="ui green large label">
+                {{order.statusPedido}}
+          </div>
+      </div>
+      
+      <div class="meta">
+         <div class="cinema">Data do pedido: {{order.dataPedido | date: 'dd/MM/yyyy'}}</div>
+      </div>
+       <span class="description">
+          <p>CPF: {{order.cliente.cpfCnpj}} | 
+          {{order.cliente.cidade}} - {{order.cliente.estado}}</p> 
+      </span>
+      <div class="extra">
+          <div class="right floated">
+              <div class="ui medium header">{{order.valorTotal | currency: 'BRL':true:'1.2-2'}}</div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

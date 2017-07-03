@@ -1,0 +1,41 @@
+<div class="ui modal">
+  <div class="header">Adicionar Produtos ao Pedido</div>
+  <div class="content">
+    <form class="ui form">
+        <table class="ui very basic table">
+          <thead>
+            <tr>
+              <th>Cod.</th>
+              <th>Nome</th>
+              <th>Preço</th>
+              <th>Quantidade</th>
+              <th>Incluir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of (products$ | async)">
+              <td class="fit">{{ product.id }}</td>
+              <td>{{ product.nome }}</td>
+              <td class="fit">{{ product.preco | currency:'BRL':true }}</td>
+              <td class="fit">
+                <div class="field">
+                    <input type="number" min="1" #quantity> 
+                </div> 
+              </td>
+              <td class="fit">
+                <div 
+                    class="ui tiny blue button" 
+                    (click)="addProduct(product, quantity.value)">
+                    Incluir
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+  </div>
+  <div class="actions">
+    <div class="ui cancel button">Cancel</div>
+    <div class="ui approve positive button">OK</div>
+  </div>
+</div>

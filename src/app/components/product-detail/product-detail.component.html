@@ -1,0 +1,33 @@
+<div *ngIf="(productDetail$ | async) as product else nothingFoundProduct">
+  <h4 class="ui dividing header">Detalhes do Produto</h4>
+
+  <div class="ui stackable grid">
+    <div class="six wide column">
+      <img class="ui medium bordered image" src="{{product.imgUrl}}">
+    </div>
+    <div class="three wide column">
+        <div class="ui form">
+          <div class="field">
+            <label>Nome: </label>
+            {{product.nome}}
+            </div>
+        <div class="field">
+          <label>Descrição: </label>
+          {{product.descricao || "Não Informado"}}
+          </div>
+        <div class="field">
+          <label>Tamanho: </label>
+          {{product.tamanho || "Não Informado"}}
+          </div>
+        <div class="field">
+          <label>Preço: </label>
+          {{product.preco}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #nothingFoundProduct>
+    <div>Not Found</div>
+</ng-template>

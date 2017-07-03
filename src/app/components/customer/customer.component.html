@@ -1,0 +1,117 @@
+<h4 class="ui dividing header">Cadastrar Novo Cliente</h4>
+<form [formGroup]="customerForm" class="ui form">
+    <div class="inline fields">
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="cpfCnpj" (change)="onChange('cpf')" [checked]="true"> 
+                <label>CPF</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" name="cpfCnpj" (change)="onChange('cnpj')" value="cnpj">
+                <label>CNPJ</label>
+            </div>
+        </div>
+    </div>
+    <h4 class="ui dividing header">Informações do Cliente</h4>
+    <div class="fields">
+        <div class="nine wide field">
+            <label>Nome</label>
+            <div class="field">
+                <input type="text" formControlName="nome" name="nome" placeholder="Nome">
+            </div>
+        </div>
+        <div class="three wide field">
+            <label *ngIf="isCpfSelected">CPF</label>
+            <label *ngIf="!isCpfSelected">CNPJ</label>
+            <div class="field">
+                <input type="text" formControlName="cpfCnpj" name="cpfCnpj" placeholder="CPF">
+            </div>
+        </div>
+        <div class="four wide field">
+            <label>Inscrição Estadual</label>
+            <div class="field">
+                <input type="text" formControlName="inscricaoEstadual" name="inscricaoEstadual" placeholder="Inscrição Estadual">
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Nome Fantasia</label>
+        <input type="text" formControlName="nomeFantasia"  name="nomeFantasia" placeholder="Nome Fantasia">
+    </div>
+    
+    <h4 class="ui dividing header">Endereço do Cliente</h4>
+    <div class="fields">
+     <div class="seven wide field">
+        <label>Endereço</label>
+        <div class="field">
+            <input type="text" formControlName="endereco" name="endereco" placeholder="Endereço">
+        </div>
+     </div>
+     <div class="four wide field">
+        <label>Bairro</label>
+        <div class="field">
+            <input type="text" formControlName="bairro" name="bairro" placeholder="Bairro">
+        </div>
+     </div>
+     <div class="two wide field">
+        <label>Número</label>
+        <div class="field">
+            <input type="text" formControlName="numero" name="numero" placeholder="Número">
+        </div>
+     </div>
+     <div class="three wide field">
+        <label>CEP</label>
+        <div class="field">
+            <div class="ui action input">
+            <input type="text" formControlName="cep" name="cep" placeholder="CEP">
+            <button class="ui icon button">
+                <i class="search icon"></i>
+            </button>
+            </div>
+        </div>
+     </div>
+    </div>
+    <div class="fields">
+        <div class="nine wide field">
+            <label>Complemento</label>
+            <div class="field">
+                <input type="text" formControlName="complemento" name="complemento" placeholder="Complemento">
+            </div>
+        </div>
+     <div class="six wide field">
+        <label>Cidade</label>
+        <div class="field">
+            <input type="text" formControlName="cidade" name="cidade" placeholder="Cidade">
+        </div>
+     </div>
+     <div class="three wide field">
+        <label>Estado</label>
+        <div class="field">
+            <input type="text" formControlName="estado" name="estado" placeholder="Estado">
+        </div>
+     </div>
+    </div>
+    <h4 class="ui dividing header">Contatos do Cliente</h4>
+    <div class="fields">
+        <div class="four wide field">
+            <label>Telefone</label>
+            <div class="field">
+                <input type="text" formControlName="telefone" name="telefone" placeholder="Telefone">
+            </div>
+        </div>
+        <div class="twelve wide field">
+            <label>Email</label>
+            <div class="field">
+                <input type="text" formControlName="email" name="email" placeholder="seuemail@email.com">
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui buttons right floated">
+        <button class="ui large button">Cancelar</button>
+        <div class="or" data-text="ou"></div>
+        <button class="ui large positive button" [disabled]="!customerForm.valid" (click)="saveCustomer(customerForm.value)">Salvar</button>
+    </div>
+</form>

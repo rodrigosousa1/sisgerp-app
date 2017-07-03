@@ -1,0 +1,14 @@
+ <h4 class="ui dividing header">Lista de Produtos</h4>
+<div class="ui divided items">
+  <div class="item" *ngFor="let product of (products$ | async)">
+    <div class="ui tiny image">
+      <img src="{{product.imgUrl}}">
+    </div>
+    <div class="content">
+      <div class="header">{{product.nome}}</div>
+      <div class="meta">
+        <span class="price">R$ {{product.preco}}</span>
+      </div>
+    </div>
+  </div>
+</div>

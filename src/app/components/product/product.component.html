@@ -1,0 +1,41 @@
+<h4 class="ui dividing header">Cadastrar Novo Produto</h4>
+<form [formGroup]="productForm" class="ui form">
+    <div class="field">
+        <label>Nome</label>
+        <input type="text" name="nome" formControlName="nome" placeholder="Nome do Produto">
+    </div>
+    <div class="field">
+    <label>Descrição</label>
+      <textarea rows="4" name="descricao" formControlName="descricao"></textarea>
+    </div>
+    <div class="fields">
+        <div class="eleven wide field">
+           <label>Foto do Produto</label>
+            <div class="field">
+              <input type="text" name="imgUrl" formControlName="imgUrl" placeholder="http://">
+            </div>
+        </div>
+        <div class="two wide field">
+          <label>Tamanho</label>
+          <select class="ui fluid dropdown" name="tamanho" formControlName="tamanho">
+              <option value="">Tamanho</option>
+              <option value="P">P</option>
+              <option value="M">M</option>
+              <option value="G">G</option>
+          </select>
+        </div>
+        <div class="three wide field">
+          <label>Preço</label>
+          <div class="field">
+            <input type="text" name="preco" formControlName="preco" placeholder="Preço do Produto">
+          </div>
+        </div>
+    </div>
+  
+    <div class="ui divider"></div>
+    <div class="ui buttons right floated">
+        <button class="ui large button">Cancelar</button>
+        <div class="or" data-text="ou"></div>
+        <button class="ui large positive button" [disabled]="!productForm.valid" (click)="saveProduct(productForm.value)">Salvar</button>
+    </div>
+</form>

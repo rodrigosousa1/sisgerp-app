@@ -1,0 +1,124 @@
+<h4 class="ui dividing header">Cadastrar Novo Pedido</h4>
+<form class="ui form" [formGroup]="orderForm">
+    <h4 class="ui dividing header">Informações do Cliente</h4>
+    <div formGroupName="cliente">
+        <div class="fields">
+            <div class="twelve wide field">
+                <label>Nome</label>
+                <div class="field">
+                    <input type="text" formControlName="nome" name="nome" placeholder="Nome">
+                </div>
+            </div>
+            <div class="four wide field">
+                <label>CPF/CNPJ</label>
+                <div class="field">
+                <div class="ui action input">
+                <input #cpfCnpj type="text" formControlName="cpfCnpj"  name="cpfCnpj" placeholder="CPF/CNPJ">
+                <button class="ui icon button" (click)="findCustomerByCpfCnpj(cpfCnpj.value)">
+                    <i class="search icon"></i>
+                </button>
+                </div>
+            </div>
+            </div>
+        </div>
+    <div class="fields">
+        <div class="seven wide field">
+            <label>Endereço</label>
+            <div class="field">
+                <input type="text" formControlName="endereco" name="endereco" placeholder="Endereço">
+            </div>
+        </div>
+        <div class="four wide field">
+            <label>Bairro</label>
+            <div class="field">
+                <input type="text" formControlName="bairro" name="bairro" placeholder="Bairro">
+            </div>
+        </div>
+        <div class="two wide field">
+            <label>Número</label>
+            <div class="field">
+                <input type="text" formControlName="numero" name="numero" placeholder="Número">
+            </div>
+        </div>
+        <div class="three wide field">
+            <label>CEP</label>
+            <div class="field">
+                <input type="text" formControlName="cep" name="cep" placeholder="CEP">
+            </div>
+        </div>
+        </div>
+        <div class="fields">
+            <div class="nine wide field">
+                <label>Complemento</label>
+                <div class="field">
+                    <input type="text" formControlName="complemento" name="complemento" placeholder="Complemento">
+                </div>
+            </div>
+        <div class="six wide field">
+            <label>Cidade</label>
+            <div class="field">
+                <input type="text" formControlName="cidade" name="cidade" placeholder="Cidade">
+            </div>
+        </div>
+        <div class="three wide field">
+            <label>Estado</label>
+            <div class="field">
+                <input type="text" formControlName="estado" name="estado" placeholder="Estado">
+            </div>
+        </div>       
+        </div>
+    </div>
+    <h4 class="ui dividing header">Lista de Produtos</h4>
+
+    <order-products [productList]="products.value" formArrayName="produtos"></order-products>
+    <products-modal></products-modal>
+
+    
+    <h4 class="ui dividing header">Informações Adicionais</h4>
+    <div class="fields">
+        <div class="four wide field">
+          <label>Tipo de Envio</label>
+          <select class="ui fluid dropdown" name="tipoEnvio" formControlName="tipoEnvio">
+              <option value="">Selecione uma opção</option>
+              <option value="PAC">PAC</option>
+              <option value="SEDEX">SEDEX</option>
+              <option value="SEDEX 10">SEDEX 10</option>
+              <option value="SEDEX Hoje">SEDEX Hoje</option>
+          </select>
+        </div>
+        <div class="four wide field">
+            <label>Valor do Frete</label>
+            <div class="field">
+            <input type="text" name="valorFrete" placeholder="Valor Frete">
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <label>Comprovante</label>
+        <input type="text" formControlName="comprovanteUrl" name="comprovanteUrl" placeholder="http://">
+    </div>
+    <div>
+        <input type="hidden" formControlName="clienteId" name="id">
+    </div>
+    <div class="field">
+        <label>Observações</label>
+        <textarea type="text" formControlName="observacao" name="observacao"></textarea>
+    </div>
+
+    <input type="hidden" formControlName="valorTotal" readonly>
+    <div class="ui segment" *ngIf="valorTotalPedido > 0">
+        <div 
+            class="ui right aligned medium header">
+            Total: {{ valorTotalPedido | currency:'BRL':true }} + {{ orderForm.get('valorFrete') }}
+        </div>
+    </div> 
+    <div class="ui divider"></div>
+    <div class="ui buttons right floated">
+        <button class="ui large button">Cancelar</button>
+        <div class="or" data-text="ou"></div>
+        <button 
+            class="ui large positive button"
+            (click)="saveOrder(orderForm.value)"
+            [disabled]="!orderForm.valid">Salvar</button>
+    </div>
+</form>

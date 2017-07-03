@@ -1,0 +1,32 @@
+<div *ngIf="productList.length > 0; else noProducts">
+  <table class="ui stackable striped table">
+        <thead>
+          <tr>
+            <th>Cod.</th>
+            <th>Qtd.</th>
+            <th>Descriminação</th>
+            <th class="right aligned">Preço Unit.</th>
+            <th class="right aligned">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productList">
+            <td>{{ product.id }}</td>
+            <td>{{ product.detalheProduto?.quantidade }}</td>
+            <td>{{ product.nome }}</td>
+            <td class="right aligned">{{ product.preco | currency:'BRL':true }}</td>
+            <td class="right aligned">{{ product.detalheProduto?.valor | currency:'BRL':true }}</td>
+          </tr>
+        </tbody>
+  </table>
+</div>
+
+<ng-template #noProducts>
+  <div class="ui one column stackable center aligned page grid">
+    <div class="column twelve wide">
+        <i class="plus square outline icon massive"></i>
+        <p>Você não adicionou nenhum produto ao pedido.</p>
+        <div id="addProdutos" style="cursor:pointer" class="ui blue tiny header">Adicionar produtos ao pedido</div> 
+    </div>
+  </div>
+</ng-template>
