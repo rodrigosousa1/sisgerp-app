@@ -1,5 +1,5 @@
 <h4 class="ui dividing header">Cadastrar Novo Cliente</h4>
-<form [formGroup]="customerForm" class="ui form">
+<form [formGroup]="customerForm" class="ui form" (ngSubmit)="createCustomer(customerForm.value)">
     <div class="inline fields">
         <div class="field">
             <div class="ui radio checkbox">
@@ -20,13 +20,27 @@
             <label>Nome</label>
             <div class="field">
                 <input type="text" formControlName="nome" name="nome" placeholder="Nome">
+                <div *ngIf="nome.touched && !nome.valid" class="ui bottom attached small negative message">
+                    <p *ngIf="cpfCnpj.errors.required">Preenchimento obrigatório.</p>
+                </div>
             </div>
+            
         </div>
         <div class="three wide field">
             <label *ngIf="isCpfSelected">CPF</label>
-            <label *ngIf="!isCpfSelected">CNPJ</label>
-            <div class="field">
+            <div *ngIf="isCpfSelected" class="field">
                 <input type="text" formControlName="cpfCnpj" name="cpfCnpj" placeholder="CPF">
+                <div *ngIf="cpfCnpj.touched && !cpfCnpj.valid" class="ui bottom attached small negative message">
+                    <p *ngIf="cpfCnpj.errors.required">Preenchimento obrigatório.</p>
+                </div>
+            </div>
+
+            <label *ngIf="!isCpfSelected">CNPJ</label>
+            <div *ngIf="!isCpfSelected" class="field">
+                <input type="text" formControlName="cpfCnpj" name="cpfCnpj" placeholder="CNPJ">
+                <div *ngIf="cpfCnpj.touched && !cpfCnpj.valid" class="ui bottom attached small negative message">
+                    <p *ngIf="cpfCnpj.errors.required">Preenchimento obrigatório.</p>
+                </div>
             </div>
         </div>
         <div class="four wide field">
@@ -47,12 +61,18 @@
         <label>Endereço</label>
         <div class="field">
             <input type="text" formControlName="endereco" name="endereco" placeholder="Endereço">
+            <div *ngIf="endereco.touched && !endereco.valid" class="ui bottom attached small negative message">
+                <p *ngIf="endereco.errors.required">Preenchimento obrigatório.</p>
+            </div>
         </div>
      </div>
      <div class="four wide field">
         <label>Bairro</label>
         <div class="field">
             <input type="text" formControlName="bairro" name="bairro" placeholder="Bairro">
+            <div *ngIf="bairro.touched && !bairro.valid" class="ui bottom attached small negative message">
+                <p *ngIf="bairro.errors.required">Preenchimento obrigatório.</p>
+            </div>
         </div>
      </div>
      <div class="two wide field">
@@ -65,10 +85,15 @@
         <label>CEP</label>
         <div class="field">
             <div class="ui action input">
-            <input type="text" formControlName="cep" name="cep" placeholder="CEP">
-            <button class="ui icon button">
-                <i class="search icon"></i>
-            </button>
+                <input type="text" formControlName="cep" name="cep" maxlength="8" placeholder="CEP">
+                <button type="button"
+                    class="ui icon button"
+                    (click)="getAddressByCep(cep.value)">
+                    <i class="search icon"></i>
+                </button>
+            </div>
+             <div *ngIf="cep.touched && !cep.valid" class="ui bottom attached small negative message">
+                <p *ngIf="cep.errors.required">Preenchimento obrigatório.</p>
             </div>
         </div>
      </div>
@@ -84,12 +109,18 @@
         <label>Cidade</label>
         <div class="field">
             <input type="text" formControlName="cidade" name="cidade" placeholder="Cidade">
+            <div *ngIf="cidade.touched && !cidade.valid" class="ui bottom attached small negative message">
+                <p *ngIf="cidade.errors.required">Preenchimento obrigatório.</p>
+            </div>
         </div>
      </div>
      <div class="three wide field">
         <label>Estado</label>
         <div class="field">
             <input type="text" formControlName="estado" name="estado" placeholder="Estado">
+            <div *ngIf="estado.touched && !estado.valid" class="ui bottom attached small negative message">
+                <p *ngIf="estado.errors.required">Preenchimento obrigatório.</p>
+            </div>
         </div>
      </div>
     </div>
@@ -112,6 +143,10 @@
     <div class="ui buttons right floated">
         <button class="ui large button">Cancelar</button>
         <div class="or" data-text="ou"></div>
-        <button class="ui large positive button" [disabled]="!customerForm.valid" (click)="saveCustomer(customerForm.value)">Salvar</button>
+        <button class="ui large positive button" [disabled]="!customerForm.valid" >Salvar</button>
     </div>
+
+
 </form>
+
+

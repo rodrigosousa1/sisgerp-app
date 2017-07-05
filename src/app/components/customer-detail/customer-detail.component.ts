@@ -18,7 +18,7 @@ export class CustomerDetailComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.customerDetail$ = this.customerService.findCustomerDetail(this.route.snapshot.params.id);
+    this.customerDetail$ = this.customerService.getDetail(this.route.snapshot.params.id);
   }
 
 }

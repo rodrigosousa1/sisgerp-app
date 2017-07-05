@@ -4,6 +4,7 @@ import * as _ from "lodash";
 
 import { ProductService } from "app/services/product.service";
 import { ProductDetail } from './../../../../../shared/model/product/productDetail';
+import { NotyMessages } from "app/common/messages/noty-messages";
 
 @Component({
   selector: 'product',
@@ -32,14 +33,9 @@ export class ProductComponent implements OnInit {
       });
   }
 
-  saveProduct(product: ProductDetail): void {
-    this.productService.saveProduct(_.cloneDeep(product))
-      .subscribe(
-        () => {
-          alert("product created successfully");
-        }, 
-        console.error
-      );
+  createProduct(newProduct: ProductDetail): void {
+    this.productService.create(_.cloneDeep(newProduct))
+      .subscribe(() => NotyMessages.onSuccess("Produto cadastrado com sucesso!"));
   }
 
 }

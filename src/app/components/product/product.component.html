@@ -1,5 +1,5 @@
 <h4 class="ui dividing header">Cadastrar Novo Produto</h4>
-<form [formGroup]="productForm" class="ui form">
+<form [formGroup]="productForm" class="ui form" (ngSubmit)="createProduct(productForm.value)">
     <div class="field">
         <label>Nome</label>
         <input type="text" name="nome" formControlName="nome" placeholder="Nome do Produto">
@@ -36,6 +36,6 @@
     <div class="ui buttons right floated">
         <button class="ui large button">Cancelar</button>
         <div class="or" data-text="ou"></div>
-        <button class="ui large positive button" [disabled]="!productForm.valid" (click)="saveProduct(productForm.value)">Salvar</button>
+        <button class="ui large positive button" [disabled]="!productForm.valid">Salvar</button>
     </div>
 </form>

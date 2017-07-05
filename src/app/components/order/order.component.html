@@ -1,5 +1,5 @@
 <h4 class="ui dividing header">Cadastrar Novo Pedido</h4>
-<form class="ui form" [formGroup]="orderForm">
+<form class="ui form" [formGroup]="orderForm" (ngSubmit)="createOrder(orderForm.value)">
     <h4 class="ui dividing header">Informações do Cliente</h4>
     <div formGroupName="cliente">
         <div class="fields">
@@ -14,7 +14,7 @@
                 <div class="field">
                 <div class="ui action input">
                 <input #cpfCnpj type="text" formControlName="cpfCnpj"  name="cpfCnpj" placeholder="CPF/CNPJ">
-                <button class="ui icon button" (click)="findCustomerByCpfCnpj(cpfCnpj.value)">
+                <button type="button" class="ui icon button" (click)="findCustomerByCpfCnpj(cpfCnpj.value)">
                     <i class="search icon"></i>
                 </button>
                 </div>
@@ -109,16 +109,15 @@
     <div class="ui segment" *ngIf="valorTotalPedido > 0">
         <div 
             class="ui right aligned medium header">
-            Total: {{ valorTotalPedido | currency:'BRL':true }} + {{ orderForm.get('valorFrete') }}
+            Total: {{ valorTotalPedido | currency:'BRL':true }}
         </div>
     </div> 
     <div class="ui divider"></div>
     <div class="ui buttons right floated">
         <button class="ui large button">Cancelar</button>
         <div class="or" data-text="ou"></div>
-        <button 
+        <button
             class="ui large positive button"
-            (click)="saveOrder(orderForm.value)"
             [disabled]="!orderForm.valid">Salvar</button>
     </div>
 </form>

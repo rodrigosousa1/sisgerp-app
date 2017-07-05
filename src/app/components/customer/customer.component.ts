@@ -5,6 +5,8 @@ import * as _ from "lodash";
 
 import { CustomerDetail } from './../../../../../shared/model/customer/customerDetail';
 import { CustomerService } from 'app/services/customer.service';
+import { ViaCepService } from './../../services/via-cep.service';
+import { NotyMessages } from 'app/common/messages/noty-messages';
 
 @Component({
   selector: 'customer',
@@ -18,7 +20,8 @@ export class CustomerComponent implements OnInit {
   isCpfSelected: boolean = true;
 
   constructor(private fb: FormBuilder,
-              private customerService: CustomerService) {
+              private customerService: CustomerService,
+              private viaCepService: ViaCepService) {
 
               this.createCustomerForm();
   }
@@ -44,6 +47,37 @@ export class CustomerComponent implements OnInit {
       });
   }
 
+  get nome() {
+    return this.customerForm.get('nome');
+  }
+
+  get cpfCnpj() {
+    return this.customerForm.get('cpfCnpj');
+  }
+
+  get endereco() {
+    return this.customerForm.get('endereco');
+  }
+
+  get bairro() {
+    return this.customerForm.get('bairro');
+  }
+
+  get cidade() {
+    return this.customerForm.get('cidade');
+  }
+
+  get estado() {
+    return this.customerForm.get('estado');
+  }
+
+  get cep() {
+    return this.customerForm.get('cep');
+  }
+
+  get complemento() {
+    return this.customerForm.get('complemento');
+  }
 
 
   onChange(value: string): void {
@@ -56,6 +90,17 @@ export class CustomerComponent implements OnInit {
       this.enableCnpjFields();
     }
   }
+
+  getAddressByCep(cep: string) {
+    this.viaCepService.getAddressByCep(cep)
+      .subscribe(cep => {
+        this.endereco.setValue(cep.logradouro);
+        this.bairro.setValue(cep.bairro);
+        this.complemento.setValue(cep.complemento);
+        this.cidade.setValue(cep.localidade);
+        this.estado.setValue(cep.uf);
+      });
+  }
   
   private disableCnpjFields() {
     this.customerForm.controls['nomeFantasia'].disable();
@@ -67,14 +112,9 @@ export class CustomerComponent implements OnInit {
      this.customerForm.controls['inscricaoEstadual'].enable();
   }
 
-  saveCustomer(customer: CustomerDetail): void {
-    this.customerService.saveCustomer(_.cloneDeep(customer))
-      .subscribe(
-        () => {
-          alert("customer created successfully");
-        },
-        console.error
-      );
+  createCustomer(newCustomer: CustomerDetail): void {
+    this.customerService.create(_.cloneDeep(newCustomer))
+      .subscribe(() => NotyMessages.onSuccess("Cliente cadastrado com sucesso!"));
   }
 
 }

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { FormBuilder, FormArray, FormControl, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
+import { NotyMessages } from 'app/common/messages/noty-messages';
 import { OrderService } from 'app/services/order.service';
 import { ProductService } from 'app/services/product.service';
 import { CustomerService } from 'app/services/customer.service';
@@ -81,7 +82,7 @@ export class OrderComponent implements OnInit {
 
 
   findCustomerByCpfCnpj(cpfCnpj: string) {
-    this.customerService.findCustomerByCpfCnpj(cpfCnpj)
+    this.customerService.getCustomerByCpfCnpj(cpfCnpj)
       .subscribe(customer => {
         this.fillCustomerForm(customer);
       });
@@ -101,16 +102,9 @@ export class OrderComponent implements OnInit {
     this.orderForm.get('clienteId').setValue(customer.id);
   }
 
-
-  saveOrder(order:OrderDetail) {
-    const newOrder = this.prepareOrder(order);
-    this.orderService.saveOrder(newOrder)
-      .subscribe(
-        () => {
-          alert("order created successfully");
-        },
-        console.error
-      );
+  createOrder(newOrder: OrderDetail) {
+    this.orderService.create(this.prepareOrder(newOrder))
+      .subscribe(() => NotyMessages.onSuccess("Pedido cadastrado com sucesso!"));
   }
 
 

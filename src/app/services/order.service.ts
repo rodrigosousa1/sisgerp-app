@@ -1,34 +1,14 @@
-import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/publishLast';
 
-import { OrderDetail } from './../../../../shared/model/order/orderDetail';
-import { OrderSummary } from './../../../../shared/model/order/orderSummary';
+import { DataService } from './data.service';
 
 @Injectable()
-export class OrderService {
+export class OrderService extends DataService {
 
-  constructor(private http: Http) { }
+  constructor(http: Http) {
+    super("/api/v1/orders", http);
+   }
 
-  findAllOrders(): Observable<OrderSummary[]> {
-    return this.http.get(`/api/v1/orders`)
-            .map(res => res.json().payload)
-            .publishLast().refCount();
-  }
-
-
-/** revisar */
-  saveOrder(order): Observable<OrderDetail> {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post(`/api/v1/order`, order, headers)
-            .map(res => res.json())
-            .first();
-  }
 
 }

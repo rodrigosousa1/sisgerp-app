@@ -16,7 +16,7 @@ export class OrderListComponent implements OnInit {
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
-    this.orders$ = this.orderService.findAllOrders();
+    this.orders$ = this.orderService.getAll();
   }
 
 }

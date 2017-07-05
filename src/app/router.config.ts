@@ -1,3 +1,5 @@
+import { Routes } from '@angular/router';
+
 import { OrderComponent } from './components/order/order.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { CustomerDetailComponent } from './components/customer-detail/customer-detail.component';
@@ -6,7 +8,7 @@ import { CustomersListComponent } from './components/customers-list/customers-li
 import { ProductComponent } from './components/product/product.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component'
-import { Routes } from '@angular/router';
+
 
 
 export const routerConfig: Routes = [
@@ -23,7 +25,7 @@ export const routerConfig: Routes = [
         component: ProductDetailComponent
     },
     {
-        path: 'cusotmers/list',
+        path: 'customers/list',
         component: CustomersListComponent
     },
     {

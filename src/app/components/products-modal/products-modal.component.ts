@@ -18,21 +18,25 @@ export class ProductsModalComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    this.products$ = this.productService.findAllProducts();
+    this.products$ = this.productService.getAll();
   }
 
 /* Revisar função */
   addProduct(product: ProductDetail, quantity: number): void {
-    const detail = {
-      detalheProduto: { 
-        quantidade: quantity,
-        valor: quantity * product.preco, 
-        produtoId: product.id
-      }
-    }
-
-    const productDetail = Object.assign(detail, product);
+    const productDetail = this.createProductDetail(product, quantity);
     this.productService.addProduct(_.cloneDeep(productDetail));
+  }
+
+  createProductDetail(product: ProductDetail, quantity: number) {
+      const detail = {
+        detalheProduto: { 
+          quantidade: quantity,
+          valor: quantity * product.preco, 
+          produtoId: product.id
+        }
+      }
+      
+      return  Object.assign(detail, product);
   }
 
 

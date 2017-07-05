@@ -2,21 +2,21 @@
   <div class="header">Adicionar Produtos ao Pedido</div>
   <div class="content">
     <form class="ui form">
-        <table class="ui very basic table">
+        <table class="ui stackable striped table">
           <thead>
             <tr>
               <th>Cod.</th>
               <th>Nome</th>
               <th>Preço</th>
               <th>Quantidade</th>
-              <th>Incluir</th>
+              <th>Ação</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let product of (products$ | async)">
-              <td class="fit">{{ product.id }}</td>
+              <td>{{ product.id }}</td>
               <td>{{ product.nome }}</td>
-              <td class="fit">{{ product.preco | currency:'BRL':true }}</td>
+              <td>{{ product.preco | currency:'BRL':true }}</td>
               <td class="fit">
                 <div class="field">
                     <input type="number" min="1" #quantity> 
@@ -24,9 +24,9 @@
               </td>
               <td class="fit">
                 <div 
-                    class="ui tiny blue button" 
+                    class="ui tiny blue button"
                     (click)="addProduct(product, quantity.value)">
-                    Incluir
+                    Incluir 
                 </div>
               </td>
             </tr>
@@ -35,7 +35,10 @@
       </form>
   </div>
   <div class="actions">
-    <div class="ui cancel button">Cancel</div>
-    <div class="ui approve positive button">OK</div>
+    <div class="ui black cancel button">Sair</div>
+    <button class="ui right labeled icon approve positive  button">
+       Confirmar
+       <i class="checkmark icon"></i>
+    </button>
   </div>
 </div>
